@@ -1,5 +1,7 @@
 <?php
-  echo __DIR__;
+  require_once(__DIR__.'/simple_html_dom.php');
+
+  echo "Processing ...";
   $rowHtml = file_get_contents(__DIR__."/dou.html");
   $html = str_get_html($rowHtml);
   $r = array();
@@ -13,5 +15,7 @@
     $html->clear();
     unset($html);
   }
-  print_r($r);
+  //print_r($r);
+  file_put_contents(__DIR__."/companies.json", json_encode($r));
+  echo "Done, number of companies " + count($r);
 ?>
