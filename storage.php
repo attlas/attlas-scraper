@@ -7,8 +7,12 @@ class storage{
     $this->home = __DIR__;
     $this->errors = $e;
   }
-  function constructPath($items){
+  function constructPathFromArray($items){
     return $this->home . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $items);
+  }
+  //
+  function constructPath(){
+    return $this->constructPathFromArray(func_get_args());
   }
 }
 

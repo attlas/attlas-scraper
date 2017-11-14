@@ -20,5 +20,5 @@ $cntx = new \atlas\context();
 //$cntx->logger->echo('a')->echoLn('b')->echo('c');
 //var_dump($cntx->http->getJson('https://jobs.dou.ua/companies/fdbfjbf/vacancies/export/'));
 
-echo $cntx->storage->constructPath(array('.docs', 'attlas', 'dou.html'));
+$cntx->logger->echoLn($cntx->storage->constructPath('.docs', 'attlas', 'dou.html'));
 ?>
