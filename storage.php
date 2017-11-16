@@ -14,6 +14,10 @@ class storage{
   function constructPath(){
     return $this->constructPathFromArray(func_get_args());
   }
+  //
+  function getFileContent($path){
+    return file_get_contents($path);
+  }
 }
 
 ?>

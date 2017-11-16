@@ -6,10 +6,8 @@ require_once(__DIR__.'/../../context.php');
   Extract companies from html page
 */
 $cntx = new \atlas\context();
-
-
-echo "Processing ...".PHP_EOL;
-$rowHtml = file_get_contents(__DIR__."/dou.html");
+$cntx->logger->echoLn("Start processing ...")
+$rowHtml = $cntx->storage->getFileContent($cntx->storage->constructPath('vacancies', 'dou', 'dou.html'));
 $html = str_get_html($rowHtml);
 $r = array();
 if($html){
