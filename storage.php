@@ -23,7 +23,7 @@ class storage{
   }
   //
   function putFileContent($path, $content){
-    file_put_contents($path, $r);
+    file_put_contents($path, $content);
   }
 }
 
