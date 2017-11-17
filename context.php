@@ -6,11 +6,11 @@ require_once(__DIR__ . '/storage.php');
 
 class context{
   //
-  function __construct() {
+  function __construct($h = null) {
     $this->logger = new \atlas\logger();
     $this->errors = new \atlas\errors($this->logger);
     $this->http = new \atlas\http($this->errors);
-    $this->storage = new \atlas\storage($this->errors);
+    $this->storage = new \atlas\storage($h, $this->errors);
   }
 }
 

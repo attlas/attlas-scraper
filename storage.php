@@ -3,8 +3,11 @@ require_once(__DIR__ . '/errors.php');
 
 class storage{
   //
-  function __construct($e) {
-    $this->home = __DIR__;
+  function __construct($h, $e) {
+    $this->home = $h;
+    if (empty($this->home)) {
+      $this->home = __DIR__;
+    }
     $this->errors = $e;
   }
   function constructPathFromArray($items){
@@ -17,6 +20,10 @@ class storage{
   //
   function getFileContent($path){
     return file_get_contents($path);
+  }
+  //
+  function putFileContent($path, $content){
+    file_put_contents($path, $r);
   }
 }
 
