@@ -1,7 +1,7 @@
 <?php
-require_once(__DIR__ . '/simple_html_dom.php');
-require_once(__DIR__ . '/comparator.php');
-require_once(__DIR__ . '/utils.php');
+require_once(__DIR__ . '/../../simple_html_dom.php');
+require_once(__DIR__ . '/../../comparator.php');
+require_once(__DIR__ . '/../../context.php');
 
 function processCompanies($dataHome, $date, $listOfCompanies=array())
 {
@@ -110,6 +110,7 @@ function processCompanies($dataHome, $date, $listOfCompanies=array())
   return $r;
 }
 //
+$cntx = new \atlas\context(__DIR__);
 $options = getopt('h:d:c::');
 if (count($options) >= 2){
   $home = $options['h'];
