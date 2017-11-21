@@ -6,7 +6,7 @@ echo " | [+] Static ..."
 echo " | [-] Static"
 
 echo " | [+] Service ..."
-pushd services/scrapper
+pushd services/demon
 mvn clean install
 popd
 echo " | [-] Service"

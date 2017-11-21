@@ -1,4 +1,4 @@
-package com.attlas.scrapper;
+package com.attlas.scrapper.demon;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;

@@ -1,4 +1,4 @@
-package com.attlas.scrapper;
+package com.attlas.scrapper.demon;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

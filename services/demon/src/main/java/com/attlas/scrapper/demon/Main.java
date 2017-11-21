@@ -1,4 +1,4 @@
-package com.attlas.scrapper;
+package com.attlas.scrapper.demon;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -28,8 +28,8 @@ public class Main {
 
   static {
     PROTOCOL = "http://";
-    host = Optional.ofNullable(System.getenv("SCRAPPER_HOSTNAME"));
-    port = Optional.ofNullable(System.getenv("SCRAPPER_PORT"));
+    host = Optional.ofNullable(System.getenv("DEMON_HOSTNAME"));
+    port = Optional.ofNullable(System.getenv("DEMON_PORT"));
     BASE_URI = PROTOCOL + host.orElse("localhost") + ":" + port.orElse("80") + "/";
   }
 
@@ -41,7 +41,7 @@ public class Main {
     logger.info("Grizzly server URL " + BASE_URI);
     // create a resource config that scans for JAX-RS resources and providers
     // in com.attlas package
-    final ResourceConfig rc = new ResourceConfig().packages("com.attlas.scrapper");
+    final ResourceConfig rc = new ResourceConfig().packages("com.attlas.scrapper.demon");
 
     // create and start a new instance of grizzly http server
     // exposing the Jersey application at BASE_URI
