@@ -45,7 +45,7 @@ public class Main {
     logger.info("Grizzly server URL " + BASE_URI);
     // create a resource config that scans for JAX-RS resources and providers
     // in com.attlas package
-    final ResourceConfig rc = new ResourceConfig().packages("com.attlas.scrapper.demon");
+    final ResourceConfig rc = new ResourceConfig().packages("com.attlas.scraper.demon");
 
     // create and start a new instance of grizzly http server
     // exposing the Jersey application at BASE_URI
@@ -63,7 +63,8 @@ public class Main {
     //
     Process p;
     try {
-      p = Runtime.getRuntime().exec("php ./scripts/vacancies/dou.ua/collect.php");
+      //p = Runtime.getRuntime().exec("php ./scripts/vacancies/dou.ua/collect.php");
+      p = Runtime.getRuntime().exec("php -v");
       p.waitFor();
       BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
       String line = "";
