@@ -12,10 +12,11 @@ then
   rm -rf ./dist
   mkdir ./dist
   cp "./target/${DEMON_ARTIFACT}" ./dist
+  cp -r ./scripts ./dist
   popd
   # [-] service
 
-  docker-compose up $1
+  #docker-compose up $1
 
 else
   echo "'$envFile' not found."

@@ -26,7 +26,7 @@ if($html){
   $cntx->logger->echoLn("Parse error");
 }
 //print_r($r);
-$cntx->storage->putFileContent($cntx->storage->constructPath('companies.json'), json_encode($r));
+$cntx->storage->putFileContent($cntx->storage->constructPath('dou.json'), json_encode($r));
 $cnt = count($r);
 $cntx->logger->echoLn("Done, number of companies {$cnt}");
 ?>

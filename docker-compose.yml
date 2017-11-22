@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  scrapper-network:
+  scraper-network:
 
 services:
   demon:
@@ -11,8 +11,9 @@ services:
         - DEMON_ARTIFACT
         - DEMON_HOSTNAME
         - DEMON_PORT
+        - DEMON_DATA_HOME
     image: ${COMPOSE_PROJECT_NAME}-demon
     networks:
-      - scrapper-network
+      - scraper-network
     ports:
       - $DEMON_PORT:$DEMON_PORT

@@ -2,3 +2,5 @@
 **/target
 **/dist
 .env
+
+services/demon/data

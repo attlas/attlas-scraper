@@ -1,9 +1,11 @@
-package com.attlas.scrapper.demon;
+package com.attlas.scraper.demon;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
@@ -23,6 +25,7 @@ public class Main {
   // Base URI the Grizzly HTTP server will listen on
   public static final String BASE_URI;
   private static final String PROTOCOL;
+  private static final String DATA_HOME;
   private static final Optional < String > host;
   private static final Optional < String > port;
 
@@ -31,6 +34,7 @@ public class Main {
     host = Optional.ofNullable(System.getenv("DEMON_HOSTNAME"));
     port = Optional.ofNullable(System.getenv("DEMON_PORT"));
     BASE_URI = PROTOCOL + host.orElse("localhost") + ":" + port.orElse("80") + "/";
+    DATA_HOME = Optional.ofNullable(System.getenv("DEMON_DATA_HOME")).orElse("./data");
   }
 
   /**
@@ -56,6 +60,20 @@ public class Main {
   public static void main(String[] args) throws IOException {
     //
     logger.info("Initiliazing Grizzly server using " + BASE_URI);
+    //
+    Process p;
+    try {
+      p = Runtime.getRuntime().exec("php ./scripts/vacancies/dou.ua/collect.php");
+      p.waitFor();
+      BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+      String line = "";
+      while ((line = reader.readLine())!= null) {
+        logger.info(line);
+      }
+    } catch (Exception e) {
+      logger.error("", e);
+    }
+    //
     CountDownLatch exitEvent = new CountDownLatch(1);
     HttpServer server = createServer();
     // register shutdown hook
