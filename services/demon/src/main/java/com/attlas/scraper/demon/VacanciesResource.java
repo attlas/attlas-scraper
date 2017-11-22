@@ -18,6 +18,9 @@ import javax.ws.rs.core.GenericEntity;
 
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 /**
  */
 @Path("/docs/vacancies")
@@ -28,8 +31,12 @@ public class VacanciesResource {
   class ApiResponse {
     public int code = 0;
     public String message = "message";
-    //public ArrayList<Object> data = null;
+    public ArrayList<Object> data = new ArrayList<>();
     public ApiResponse() {
+      this.data.add("Random String");
+      this.data.add(121); //int
+      this.data.add(1.22); //double
+      this.data.add(false); //bolean
     }
   }
   /**
@@ -44,17 +51,27 @@ public class VacanciesResource {
     objList.add("Random String");
     objList.add(121); //int
     objList.add(1.22); //double
-    objList.add(false); //bolean
+    objList.add(false); //boolean
+    return Response.status(Response.Status.CREATED).entity(objList).build();
     /*/
-
-    //return Response.status(Response.Status.CREATED).entity(objList).build();
-    //return Response.status(201).entity(objList).build();
-
-    //return Response.status(Response.Status.OK).entity(new GenericEntity<List<Object>>(objList){}).type(MediaType.APPLICATION_JSON).build();
+    /*/
+    return Response.status(Response.Status.OK).entity(new GenericEntity<List<Object>>(objList){}).type(MediaType.APPLICATION_JSON).build();
+    /*/
+    /*/
     List<Object> myList = new ArrayList<>();
     return Response.ok().entity(new GenericEntity<List<Object>>(myList){}).build();
+    /*/
     //
     //return new ApiResponse();
     //return Response.status(201).entity("text").build();
+    /*/
+    try {
+      return Response.status(Response.Status.CREATED).entity(new ObjectMapper().writeValueAsString(new ApiResponse())).build();
+    } catch (JsonProcessingException e) {
+      logger.error("Exception", e);  
+    }
+    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+    /*/
+    return Response.status(Response.Status.CREATED).entity(new ApiResponse()).build();
   }
 }
