@@ -15,17 +15,12 @@ import org.apache.log4j.Logger;
  * Main class.
  *
  */
-public class Main {
+public class Storage {
 
-  private static final Logger logger = Logger.getLogger(Main.class);
+  private static final Logger logger = Logger.getLogger(Storage.class);
   //
 
-  // Base URI the Grizzly HTTP server will listen on
-  public static final String BASE_URI;
-  private static final String PROTOCOL;
-  private static final String DATA_HOME;
-  private static final Optional < String > host;
-  private static final Optional < String > port;
+  private static final String DEMON_DATA_HOME;
 
   static {
     PROTOCOL = "http://";
@@ -58,7 +53,6 @@ public class Main {
   public static void main(String[] args) throws IOException {
     //
     logger.info("Initiliazing Grizzly server using " + BASE_URI);
-    logger.info("Data home " + DATA_HOME);
     //
     //
     CountDownLatch exitEvent = new CountDownLatch(1);
