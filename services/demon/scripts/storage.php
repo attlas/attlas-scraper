@@ -10,20 +10,28 @@ class storage{
     }
     $this->errors = $e;
   }
-  function constructPathFromArray($items){
-    return $this->home . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $items);
+  function constructPathFromArray($folders){
+    $p = $this->home;
+    if (count($folders)){
+      $p .= DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $folders);
+    }
+    return $p;
   }
   //
   function constructPath(){
     return $this->constructPathFromArray(func_get_args());
   }
   //
-  function getFileContent($path){
-    return file_get_contents($path);
+  function getFileContent($folders, $file){
+    return file_get_contents($this->constructPathFromArray($folders) . DIRECTORY_SEPARATOR . $file);
   }
   //
-  function putFileContent($path, $content){
-    file_put_contents($path, $content);
+  function putFileContent($folders, $file, $content){
+    $p = $this->constructPathFromArray($folders);
+    if (!file_exists($p)) {
+      mkdir($p, 0644, true);
+    }
+    file_put_contents($p . DIRECTORY_SEPARATOR . $file, $content);
   }
 }
 

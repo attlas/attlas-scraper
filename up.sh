@@ -16,7 +16,7 @@ then
   popd
   # [-] service
 
-  #docker-compose up $1
+  docker-compose up $1
 
 else
   echo "'$envFile' not found."

@@ -2,6 +2,9 @@
 require_once(__DIR__.'/../../simple_html_dom.php');
 require_once(__DIR__.'/../../context.php');
 
+/opt/attlas/docs/vacancies/dou.ua
+/opt/attlas/docs/vacancies/dou.ua
+
 /*
   Extract companies from html page
 */

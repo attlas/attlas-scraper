@@ -4,9 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,7 +21,7 @@ import javax.ws.rs.core.GenericEntity;
 import org.apache.log4j.Logger;
 
 import com.attlas.scraper.demon.ApiResponse;
-
+import com.attlas.scraper.demon.Storage;
 
 /**
  */
@@ -42,19 +39,10 @@ public class VacanciesResource {
   public Response getVacanciesByCompaniesAndDates(@Context UriInfo uriInfo, @PathParam("companies") String companies) {
     logger.info(uriInfo.getRequestUri());
     //
-    int exitVal = -1;
-    try {
-      Process p = Runtime.getRuntime().exec("php ./scripts/vacancies/"+companies+"/post.php " + uriInfo.getPath());
-      exitVal = p.waitFor();
-      BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-      String line = "";
-      while ((line = reader.readLine())!= null) {
-        logger.info(line);
-      }
-    } catch (Exception e) {
-      logger.error("", e);
+    if (Storage.exec("php ./scripts/vacancies/"+companies+"/post.php " + Storage.getDemonDataHome() + "/" + uriInfo.getPath())) {
+      return Response.ok().entity(ApiResponse.build()).build();
     }
-    return Response.ok().entity(ApiResponse.build()).build();
+    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
   }
 
   /**

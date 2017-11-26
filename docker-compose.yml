@@ -17,3 +17,5 @@ services:
       - scraper-network
     ports:
       - $DEMON_PORT:$DEMON_PORT
+    volumes:
+      - $DATA_HOME:$DEMON_DATA_HOME
