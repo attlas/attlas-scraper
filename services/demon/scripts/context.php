@@ -12,6 +12,10 @@ class context{
     $this->http = new \atlas\http($this->errors);
     $this->storage = new \atlas\storage($h, $this->errors);
   }
+  //
+  function exit($status, $message, $data) {
+    exit(json_encode((object)array('status' => $status, 'message' => $message, 'data' => $data)));
+  }
 }
 
 $cntx = new \atlas\context();

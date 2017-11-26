@@ -2,6 +2,10 @@
 require_once(__DIR__.'/../../simple_html_dom.php');
 require_once(__DIR__.'/../../context.php');
 
+/*
+ *  Extract companies from html page
+ */
+
 $cntx = new \atlas\context(__DIR__);
 if (count($argv) === 2){
   $cntxData = new \atlas\context($argv[1]);
@@ -30,14 +34,7 @@ if (count($argv) === 2){
   $cnt = count($r);
   $cntx->logger->echoLn("[-] Done, number of companies {$cnt}");
 } else {
-  $cntx->logger->echoLn("Invalid parameters count");
+  $cntx->logger->echoLn("Invalid count of parameters");
 }
 
-/*
-  Extract companies from html page
-*/
-/*
-//print_r($r);
-$cntx->storage->putFileContent($cntx->storage->constructPath('dou.json'), json_encode($r));
-*/
 ?>

@@ -3,48 +3,55 @@ require_once(__DIR__ . '/../../simple_html_dom.php');
 require_once(__DIR__ . '/../../comparator.php');
 require_once(__DIR__ . '/../../context.php');
 
-function processCompanies($dataHome, $date, $listOfCompanies=array())
-{
+//
+/*
+ * $cntx - context
+ * $date - export  date
+ * $listOfCompanies - 
+ */
+function exportCompanies($cntx, $date, $listOfCompanies = array()) {
   $key       = $date;
   $r         = (object) array(
     'timestamp' => $key,
     'companies' => 0,
     'vacancies' => 0,
     'executionTime' => microtime(true),
-    'errors' => array()
+    'log' => array()
   );
-  //
+  /*/
   $cmp       = new \atlas\comparator();
+  /*/
   $companies = array();
   if (count($listOfCompanies)) {
     foreach ($listOfCompanies as $c) {
       $companies[] = (object)array('id' => $c);
     }
   } else {
-    $companies = json_decode(file_get_contents(__DIR__ . '/companies.json'));
+    $companies = ($cntx->storage->getFileContent(array(), 'attrs.json', true))->companies;
   }
   //
   $cCount = count($companies);
   $cI = 0;
-  echoLn("Number of companies to process {$cCount}");
+  $r->log[] = "Number of companies to process {$cCount}";
   foreach ($companies as $c) {
     //
     $id   = $c->id;
     $cI++;
+    /*/
     if ($cI > 2) {
       break;
     }
+    /*/
     // get all company vacancies
     $url  = "https://jobs.dou.ua/companies/{$id}/vacancies/export/";
-    echoLn("[{$cI}] Processing {$url}");
+    $r->log[] = "[{$cI}] Processing {$url}";
     $data = array();
-    if (get($url, $data)) {
-      echoLn();
-      print_r($data);
-      echoLn();
+    $status = $cntx->http->get($url, true);
+    if ($status->isOk()) {
+      echo $url . PHP_EOL;
+      $data = $status->data;
       if (count($data)) {
         $r->companies++;
-        echoLn(count($data) . '-> ', false);
         foreach ($data as &$d) {
           $r->vacancies++;
           // get vacancies details
@@ -53,72 +60,67 @@ function processCompanies($dataHome, $date, $listOfCompanies=array())
           $cities  = "";
           try {
             // parce vacancy html
-            $rowHtml = "";
-            get($d->link, $rowHtml, false);
-            $html = str_get_html($rowHtml);
-            if ($html) {
-              // get vacancy details
-              // TODO split into sections: description, requirements etc.
-              foreach ($html->find('div.vacancy-section div p') as $element) {
-                $vacancy .= ' ' . $element->plaintext;
-              }
-              // get vacancy location
-              foreach ($html->find('span.place') as $element) {
-                $cities .= trim($element->plaintext);
-              }
+            /*/
+            $statusVacHtml = $cntx->http->get($d->link, false);
+            if ($statusVacHtml->isOk()){
+              $rowHtml = $statusVacHtml->data;
+              $html = str_get_html($rowHtml);
+              if ($html) {
+                // get vacancy details
+                // TODO split into sections: description, requirements etc.
+                foreach ($html->find('div.vacancy-section div p') as $element) {
+                  $vacancy .= ' ' . $element->plaintext;
+                }
+                // get vacancy location
+                foreach ($html->find('span.place') as $element) {
+                  $cities .= trim($element->plaintext);
+                }
               
-              $html->clear();
-              unset($html);
+                $html->clear();
+                unset($html);
+              } else {
+                $r->log[] = $statusVacHtml->errMsg;
+              }
             } else {
-              $r->errors[] = 'parse error: ' . $d->link;
+              $r->log[] = 'parse error: ' . $d->link;
             }
+            /*/
           }
           catch (Exception $e) {
-            $r->errors[] = $e->getMessage();
+            $r->log[] = $e->getMessage();
           }
           $d->vacancy = $vacancy;
           if (!empty($cities)) {
             $d->city = $cities;
           }
+          /*/
           $cmp->preprocess($vacancy);
           $d->tags = $cmp->getPreprocessedTags();
-          echo '.';
+          /*/
         }
         //
       } else {
-        $err = "No data for {$url}";
-        echoLn($err); 
-        $r->errors[] = $err;
-      }
-      $home = "{$dataHome}".DIRECTORY_SEPARATOR."{$date}";
-      if (!file_exists($home)) {
-        mkdir($home, 0777, true);
+        $r->log[] = "No data";
       }
       if (count($data)) {
-        file_put_contents($home.DIRECTORY_SEPARATOR."${id}.json", json_encode($data));
+        $cntx->storage->putFileContent(array($date), "${id}.json", json_encode($data));
       }
-      echoLn(); 
-      echoLn('done'); 
     } else {
-      $err = "Get data error from {$url}";
-      echoLn($err); 
-      $r->errors[] = $err;
+      $r->log[] = "Get data error, {$status->errMsg}";
     }
   }
   $r->executionTime = microtime(true) - $r->executionTime;
   //
+  $cntx->storage->putFileContent(array($date), "export-status.json", json_encode($r));  
   return $r;
 }
 //
 $cntx = new \atlas\context(__DIR__);
-$options = getopt('h:d:c::');
-if (count($options) >= 2){
-  $home = $options['h'];
-  $summary = processCompanies($home, $options['d'], explode(',', $options['c']));
-  file_put_contents($home.DIRECTORY_SEPARATOR."summary.json", json_encode($summary));
-} else {
-  echoLn("Invalid arguments, try -h\"/path/to/data/home\" -d\"YYYYMMDD\"");
+if (count($argv) === 3){
+  $cntxData = new \atlas\context($argv[1]);
+  $data = exportCompanies($cntxData, $argv[2]);
+  $cntx->exit(\atlas\httpCodes::HTTP_OK, '', $data);
 }
-
+$cntx->exit(\atlas\httpCodes::HTTP_BAD_REQUEST, 'Invalid arguments', null);
 
 ?>

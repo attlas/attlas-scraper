@@ -1,5 +1,6 @@
 <?php namespace atlas;
 require_once(__DIR__ . '/errors.php');
+require_once(__DIR__ . '/httpCodes.php');
 
 class http{
   //
@@ -28,7 +29,7 @@ class http{
     if ($status->isOk()) {
       if ($decode) {
         $status->data = json_decode($cret);
-        if (empty($status->data)){
+        if ($status->data === null){
           $status->ret = false;
           $status->errCode = 1000;
           $status->errMsg = 'Output is not a JSON';
