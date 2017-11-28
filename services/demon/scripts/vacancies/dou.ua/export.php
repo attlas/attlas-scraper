@@ -60,7 +60,7 @@ function exportCompanies($cntx, $date, $listOfCompanies = array()) {
           $cities  = "";
           try {
             // parce vacancy html
-            /*/
+            //
             $statusVacHtml = $cntx->http->get($d->link, false);
             if ($statusVacHtml->isOk()){
               $rowHtml = $statusVacHtml->data;
@@ -84,7 +84,7 @@ function exportCompanies($cntx, $date, $listOfCompanies = array()) {
             } else {
               $r->log[] = 'parse error: ' . $d->link;
             }
-            /*/
+            //
           }
           catch (Exception $e) {
             $r->log[] = $e->getMessage();

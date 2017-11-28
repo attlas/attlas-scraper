@@ -11,12 +11,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
-
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.PathSegment;
 
 import org.apache.log4j.Logger;
 
@@ -36,12 +36,35 @@ public class VacanciesResource {
   @Path("/{companies}")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public Response getVacanciesByCompaniesAndDates(@Context UriInfo uriInfo, @PathParam("companies") String companies) {
+  public Response updateVacanciesByCompanies(@Context UriInfo uriInfo, @PathParam("companies") String companies) {
     logger.info(uriInfo.getRequestUri());
     //
     if (Storage.exec("php ./scripts/vacancies/"+companies+"/post.php " + Storage.getDemonDataHome() + "/" + uriInfo.getPath())) {
       return Response.ok().entity(ApiResponse.build()).build();
     }
+    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+  }
+
+  /**
+   */
+  @POST
+  @Path("/{companies}/{date}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response updateVacanciesByCompaniesAndDate(@Context UriInfo uriInfo, @PathParam("companies") String companies, @PathParam("date") String date) {
+    logger.info(uriInfo.getRequestUri());
+    List<PathSegment> segments = uriInfo.getPathSegments();
+    //segments.remove(segments.size() - 1);
+    //
+    String companyHome = segments.get(0).getPath();
+    for(int i = 1; i < segments.size() - 1; i++){
+      companyHome += "/" + segments.get(i).getPath();
+    }
+    //
+    if (Storage.exec("php ./scripts/vacancies/"+companies+"/export.php " + Storage.getDemonDataHome() + "/" + companyHome + " " + date)) {
+      return Response.ok().entity(ApiResponse.build()).build();
+    }
+    //
     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
   }
 
