@@ -54,13 +54,13 @@ public class VacanciesResource {
   public Response updateVacanciesByCompaniesAndDate(@Context UriInfo uriInfo, @PathParam("companies") String companies, @PathParam("date") String date) {
     logger.info(uriInfo.getRequestUri());
     List<PathSegment> segments = uriInfo.getPathSegments();
-    //segments.remove(segments.size() - 1);
-    //
+    // remove date from path
     String companyHome = segments.get(0).getPath();
     for(int i = 1; i < segments.size() - 1; i++){
       companyHome += "/" + segments.get(i).getPath();
     }
     //
+    Storage.exec("pwd");
     if (Storage.exec("php ./scripts/vacancies/"+companies+"/export.php " + Storage.getDemonDataHome() + "/" + companyHome + " " + date)) {
       return Response.ok().entity(ApiResponse.build()).build();
     }

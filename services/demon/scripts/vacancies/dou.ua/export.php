@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../simple_html_dom.php');
-require_once(__DIR__ . '/../../comparator.php');
 require_once(__DIR__ . '/../../context.php');
+require_once(__DIR__ . '/../../tags/skills/hard/hardSkills.php');
 
 //
 /*
@@ -18,9 +18,9 @@ function exportCompanies($cntx, $date, $listOfCompanies = array()) {
     'executionTime' => microtime(true),
     'log' => array()
   );
-  /*/
-  $cmp       = new \atlas\comparator();
-  /*/
+  //
+  $hs = new \atlas\hardSkills();
+  //
   $companies = array();
   if (count($listOfCompanies)) {
     foreach ($listOfCompanies as $c) {
@@ -48,7 +48,6 @@ function exportCompanies($cntx, $date, $listOfCompanies = array()) {
     $data = array();
     $status = $cntx->http->get($url, true);
     if ($status->isOk()) {
-      echo $url . PHP_EOL;
       $data = $status->data;
       if (count($data)) {
         $r->companies++;
@@ -75,7 +74,6 @@ function exportCompanies($cntx, $date, $listOfCompanies = array()) {
                 foreach ($html->find('span.place') as $element) {
                   $cities .= trim($element->plaintext);
                 }
-              
                 $html->clear();
                 unset($html);
               } else {
@@ -93,10 +91,9 @@ function exportCompanies($cntx, $date, $listOfCompanies = array()) {
           if (!empty($cities)) {
             $d->city = $cities;
           }
-          /*/
-          $cmp->preprocess($vacancy);
-          $d->tags = $cmp->getPreprocessedTags();
-          /*/
+          //
+          $d->tags = $hs->grep($vacancy);
+          //
         }
         //
       } else {
@@ -118,7 +115,7 @@ function exportCompanies($cntx, $date, $listOfCompanies = array()) {
 $cntx = new \atlas\context(__DIR__);
 if (count($argv) === 3){
   $cntxData = new \atlas\context($argv[1]);
-  $data = exportCompanies($cntxData, $argv[2]);
+  $data = exportCompanies($cntxData, $argv[2]/*, array('epam-systems')*/);
   $cntx->exit(\atlas\httpCodes::HTTP_OK, '', $data);
 }
 $cntx->exit(\atlas\httpCodes::HTTP_BAD_REQUEST, 'Invalid arguments', null);
