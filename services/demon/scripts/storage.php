@@ -22,12 +22,18 @@ class storage{
     return $this->constructPathFromArray(func_get_args());
   }
   //
+  function fileExists($folders, $file){
+    return file_exists($this->constructPathFromArray($folders) . DIRECTORY_SEPARATOR . $file);
+  }
+  //
   function getFileContent($folders, $file, $decode){
     $data = file_get_contents($this->constructPathFromArray($folders) . DIRECTORY_SEPARATOR . $file);
-    if ($decode) {
-      return json_decode($data);
+    if ($data) {
+      if ($decode) {
+        return json_decode($data);
+      }
     }
-    return $data;
+    return null;
   }
   //
   function putFileContent($folders, $file, $content){
