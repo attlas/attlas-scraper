@@ -1,6 +1,7 @@
 **/*.log
 **/target
 **/dist
+**/nohup.out
 .env
 
 services/demon/data

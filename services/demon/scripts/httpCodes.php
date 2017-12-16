@@ -1,4 +1,4 @@
-<?php  namespace atlas;
+<?php  namespace attlas;
 class httpCodes {
   // [Informational 1xx]
   const HTTP_CONTINUE = 100;

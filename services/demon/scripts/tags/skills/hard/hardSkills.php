@@ -1,4 +1,4 @@
-<?php namespace atlas;
+<?php namespace attlas;
 require_once(__DIR__.'/../../../context.php');
 require_once(__DIR__.'/../../../comparator.php');
 
@@ -6,8 +6,8 @@ class hardSkills{
   //
   function __construct() {
     //
-    $this->cntx = new \atlas\context(__DIR__);
-    $this->comp = new \atlas\comparator(($this->cntx->storage->getFileContent(array(), 'attrs.json', true))->tags);
+    $this->cntx = new \attlas\context(__DIR__);
+    $this->comp = new \attlas\comparator(($this->cntx->storage->getFileContent(array(), 'attrs.json', true))->tags);
   }
   //
   function grep($text){

@@ -1,4 +1,4 @@
-<?php namespace atlas;
+<?php namespace attlas;
 require_once(__DIR__ . '/errors.php');
 
 class storage{
@@ -32,6 +32,7 @@ class storage{
       if ($decode) {
         return json_decode($data);
       }
+      return $data;
     }
     return null;
   }

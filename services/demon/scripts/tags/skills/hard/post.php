@@ -1,9 +1,9 @@
-<?php namespace atlas;
+<?php namespace attlas;
 require_once(__DIR__.'/hardSkills.php');
 
-$hs = new \atlas\hardSkills();
+$hs = new \attlas\hardSkills();
 //
-$cntxData = new \atlas\context('/opt/attlas/docs/vacancies/dou.ua/20171127');
+$cntxData = new \attlas\context('/opt/attlas/docs/vacancies/dou.ua/20171127');
 $vs = $cntxData->storage->getFileContent(array(), 'epam-systems.json', true);
 foreach($vs as $v) {
   $tags = $hs->grep($v->vacancy);

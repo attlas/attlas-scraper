@@ -15,7 +15,8 @@ RUN apt-get update && apt-get -y install \
   php7.0-curl \
   php7.0-mcrypt \
   php7.0-cli \
-  php7.0-mbstring
+  php7.0-mbstring \
+  mc
 
 COPY ./dist /
 CMD exec java -jar /${DEMON_ARTIFACT}

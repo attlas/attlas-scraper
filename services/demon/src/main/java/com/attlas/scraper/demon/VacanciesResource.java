@@ -31,6 +31,7 @@ public class VacanciesResource {
   private static final Logger logger = Logger.getLogger(VacanciesResource.class);
 
   /**
+   * Update general data source company information
    */
   @POST
   @Path("/{companies}")
@@ -46,6 +47,7 @@ public class VacanciesResource {
   }
 
   /**
+   * Export data from specific source(company) for specific date
    */
   @POST
   @Path("/{companies}/{date}")
@@ -61,7 +63,12 @@ public class VacanciesResource {
     }
     //
     Storage.exec("pwd");
-    if (Storage.exec("php ./scripts/vacancies/"+companies+"/export.php " + Storage.getDemonDataHome() + "/" + companyHome + " " + date)) {
+    if (Storage.exec("php ./scripts/vacancies/" + companies+"/export.php " +
+                                                  Storage.getDemonDataHome() + "/" + companyHome + " " +
+                                                  date + " " +
+                                                  Storage.getTorHost() + " " +
+                                                  Storage.getTorSocksPort()
+      )) {
       return Response.ok().entity(ApiResponse.build()).build();
     }
     //

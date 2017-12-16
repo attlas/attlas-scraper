@@ -1,9 +1,13 @@
 <?php
+/* Export vacancies for set of companies
+ */
+
 require_once(__DIR__ . '/../../simple_html_dom.php');
 require_once(__DIR__ . '/../../context.php');
 require_once(__DIR__ . '/../../tags/skills/hard/hardSkills.php');
 
 define('STATUS_FILE_NAME', 'export-status.json');
+
 
 function parseVacancy($cntx, $url) {
   $details = (object)array(
@@ -14,7 +18,7 @@ function parseVacancy($cntx, $url) {
   //
   try {
     // parse vacancy html
-    $statusVacHtml = $cntx->http->get($url, false);
+    $statusVacHtml = $cntx->http->get($url, false, true);
     if ($statusVacHtml->isOk()){
       $rowHtml = $statusVacHtml->data;
       $html = str_get_html($rowHtml);
@@ -50,9 +54,9 @@ function parseVacancy($cntx, $url) {
  * $sleepTimeout - timeout in seconds between requests
  * $companiesLimit - number of campanies to be processed during sinle call
  */
-function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout = 8, $companiesLimit = 10) {
+function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout = 1, $companiesLimit = 10) {
   $key       = $date;
-  //д
+  //
   $r = (object) array(
     'timestamp' => $key,
     'totalCompanies' => 0,
@@ -62,7 +66,7 @@ function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout
     'log' => array()
   );
   //
-  $hs = new \atlas\hardSkills();
+  $hs = new \attlas\hardSkills();
   //
   $companies = array();
   if (count($listOfCompanies)) {
@@ -76,7 +80,7 @@ function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout
   $r->totalCompanies = count($companies);
   foreach ($companies as $c) {
     //
-    // check lomit
+    // check limit
     if ($r->processedCompanies >= $companiesLimit) {
       break;
     }
@@ -92,7 +96,7 @@ function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout
     $url  = "https://jobs.dou.ua/companies/{$companyId}/vacancies/export/";
     $r->log[] = "[{$r->processedCompanies}] Processing {$url}";
     $data = array();
-    $status = $cntx->http->get($url, true);
+    $status = $cntx->http->get($url, true, true);
     if ($status->isOk()) {
       $data = $status->data;
       if (count($data)) {
@@ -133,12 +137,12 @@ function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout
   return $r;
 }
 //
-$cntx = new \atlas\context(__DIR__);
-if (count($argv) === 3){
-  $cntxData = new \atlas\context($argv[1]);
-  $data = exportCompanies($cntxData, $argv[2]/*, array('1plus1')*/);
-  $cntx->exit(\atlas\httpCodes::HTTP_OK, '', $data);
+// nohup php export.php /opt/attlas/docs/vacancies/dou.ua 20171216 127.0.0.1 9050 &
+$cntx = new \attlas\context(__DIR__);
+if (count($argv) === 5){
+  $data = exportCompanies(new \attlas\context($argv[1], $argv[3], $argv[4]), $argv[2]/*, array('globallogic', '1plus1')*/);
+  $cntx->exit(\attlas\httpCodes::HTTP_OK, '', $data);
 }
-$cntx->exit(\atlas\httpCodes::HTTP_BAD_REQUEST, 'Invalid arguments', null);
+$cntx->exit(\attlas\httpCodes::HTTP_BAD_REQUEST, 'Invalid arguments', null);
 
 ?>
