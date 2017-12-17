@@ -4,14 +4,16 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.log4j.Logger;
+
+import com.owlike.genson.ext.jaxrs.GensonJsonConverter;
+
+import com.attlas.scraper.demon.Storage;
 
 /**
  * Main class.
@@ -25,7 +27,6 @@ public class Main {
   // Base URI the Grizzly HTTP server will listen on
   public static final String BASE_URI;
   private static final String PROTOCOL;
-  private static final String DATA_HOME;
   private static final Optional < String > host;
   private static final Optional < String > port;
 
@@ -34,7 +35,6 @@ public class Main {
     host = Optional.ofNullable(System.getenv("DEMON_HOSTNAME"));
     port = Optional.ofNullable(System.getenv("DEMON_PORT"));
     BASE_URI = PROTOCOL + host.orElse("localhost") + ":" + port.orElse("80") + "/";
-    DATA_HOME = Optional.ofNullable(System.getenv("DEMON_DATA_HOME")).orElse("./data");
   }
 
   /**
@@ -45,7 +45,8 @@ public class Main {
     logger.info("Grizzly server URL " + BASE_URI);
     // create a resource config that scans for JAX-RS resources and providers
     // in com.attlas package
-    final ResourceConfig rc = new ResourceConfig().packages("com.attlas.scrapper.demon");
+    final ResourceConfig rc = new ResourceConfig().packages("com.attlas.scraper.demon");
+    rc.register(GensonJsonConverter.class);
 
     // create and start a new instance of grizzly http server
     // exposing the Jersey application at BASE_URI
@@ -60,19 +61,10 @@ public class Main {
   public static void main(String[] args) throws IOException {
     //
     logger.info("Initiliazing Grizzly server using " + BASE_URI);
+    logger.info("Data home: " + Storage.getDemonDataHome());
+    Storage.exec("printenv");
+    Storage.exec("php -v");
     //
-    Process p;
-    try {
-      p = Runtime.getRuntime().exec("php ./scripts/vacancies/dou.ua/collect.php");
-      p.waitFor();
-      BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-      String line = "";
-      while ((line = reader.readLine())!= null) {
-        logger.info(line);
-      }
-    } catch (Exception e) {
-      logger.error("", e);
-    }
     //
     CountDownLatch exitEvent = new CountDownLatch(1);
     HttpServer server = createServer();

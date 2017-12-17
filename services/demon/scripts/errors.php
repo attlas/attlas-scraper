@@ -1,4 +1,4 @@
-<?php namespace atlas;
+<?php namespace attlas;
 require_once(__DIR__ . '/logger.php');
 
 class status{
@@ -21,7 +21,7 @@ class errors{
   }
   //
   function createStatus() {
-    return new \atlas\status();
+    return new \attlas\status();
   }
 }
 ?>

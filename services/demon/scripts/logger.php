@@ -1,4 +1,4 @@
-<?php namespace atlas;
+<?php namespace attlas;
 class logger{
   //
   function __construct() {

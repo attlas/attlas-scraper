@@ -12,7 +12,7 @@ import javax.ws.rs.core.UriInfo;
 import org.apache.log4j.Logger;
 
 /**
- * Root resource (exposed at "myresource" path)
+ * Root resource (exposed at "healthcheck" path)
  */
 @Path("healthcheck")
 public class HealthCheckResource {

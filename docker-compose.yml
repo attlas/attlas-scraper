@@ -13,7 +13,20 @@ services:
         - DEMON_PORT
         - DEMON_DATA_HOME
     image: ${COMPOSE_PROJECT_NAME}-demon
+    links:
+      - tor
     networks:
       - scraper-network
     ports:
       - $DEMON_PORT:$DEMON_PORT
+    environment:
+      - TOR_HOST
+      - TOR_SOCKS_PORT
+    volumes:
+      - $DATA_HOME:$DEMON_DATA_HOME
+  tor:
+    build:
+      context: ./services/tor
+    image: ${COMPOSE_PROJECT_NAME}-tor
+    networks:
+      - scraper-network
