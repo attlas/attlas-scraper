@@ -54,7 +54,7 @@ function parseVacancy($cntx, $url) {
  * $sleepTimeout - timeout in seconds between requests
  * $companiesLimit - number of campanies to be processed during sinle call
  */
-function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout = 1, $companiesLimit = 50) {
+function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout = 0, $companiesLimit = 250) {
   $key       = $date;
   //
   $r = (object) array(
