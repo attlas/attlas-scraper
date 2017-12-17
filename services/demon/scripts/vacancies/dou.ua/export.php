@@ -54,7 +54,7 @@ function parseVacancy($cntx, $url) {
  * $sleepTimeout - timeout in seconds between requests
  * $companiesLimit - number of campanies to be processed during sinle call
  */
-function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout = 1, $companiesLimit = 10) {
+function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout = 1, $companiesLimit = 50) {
   $key       = $date;
   //
   $r = (object) array(
@@ -90,7 +90,6 @@ function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout
     if ($cntx->storage->fileExists(array($date), $companyFileName)) {
       continue;
     }
-    $r->processedCompanies++;
     //
     // get all company vacancies
     $url  = "https://jobs.dou.ua/companies/{$companyId}/vacancies/export/";
@@ -119,9 +118,8 @@ function exportCompanies($cntx, $date, $listOfCompanies = array(), $sleepTimeout
       } else {
         $r->log[] = "No data";
       }
-      if (count($data)) {
-        $cntx->storage->putFileContent(array($date), $companyFileName, json_encode($data));
-      }
+      $r->processedCompanies++;
+      $cntx->storage->putFileContent(array($date), $companyFileName, json_encode($data));
     } else {
       $r->log[] = "Get data error, {$status->errMsg}";
     }
