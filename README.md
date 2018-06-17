@@ -1,4 +1,11 @@
 # attlas-scraper
+Collect information about vacancies from public sources
+
+## Start
+* create local dev .env file, copying **.env.template** to **.env file**
+* execute **./build.sh** to build demon service
+* execute **./up.sh -d** to start service
+* execure **./down.sh** to stop service & remove all images
 
 ## Dev environment
 * apt-get -y install php-curl php-mbstring php7.0-mbstring php-gettext
