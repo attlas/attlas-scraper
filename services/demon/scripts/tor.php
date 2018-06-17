@@ -28,6 +28,19 @@ class tor{
     return $r;
   }
   //
+  function head($url){
+    $curl = curl_init();
+    $this->config($curl, $url);
+    curl_setopt($curl, CURLOPT_HEADER, true);
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'HEAD');
+    curl_setopt($curl, CURLOPT_NOBODY, true );
+    curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+    $r = curl_exec($curl);
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    return $httpcode;
+  }
+  //
   function test(){
     //$this->logger->echoLn($this->get("http://whatismyip.org"));
     $this->logger->echoLn($this->get('https://ipinfo.io/json'));
@@ -36,10 +49,18 @@ class tor{
 
 }
 
-/*/
-$t = new \attlas\tor(new \attlas\logger(), '127.0.0.1', '9050');
-$t->test();
-/*/
+//
+$l = new \attlas\logger();
+$t = new \attlas\tor($l, '127.0.0.1', '9050');
+for($i = 55000; $i < 56000; $i++){
+  $code = $t->head("https://jobs.dou.ua/companies/ciklum/vacancies/$i/");
+  if ($code === 200){
+    $l->echoLn()->echoLn($i);
+  } else {
+    $l->echo('.');
+  }
+}
+//
 
 /*
 $ip = '127.0.0.1';
