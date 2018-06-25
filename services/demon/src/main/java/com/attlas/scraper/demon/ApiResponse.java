@@ -1,8 +1,7 @@
 package com.attlas.scraper.demon;
 
-import java.util.List;
-
 import javax.ws.rs.core.Response.Status;
+import java.util.List;
 
 class ApiResponse {
   //
