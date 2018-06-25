@@ -12,6 +12,9 @@ services/demon/data
 /node_modules
 /.idea
 **/.idea
+.idea/
+.idea/**/*
+node_modules/
 
 # testing
 /coverage
