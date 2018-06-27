@@ -4,8 +4,8 @@
 * copy **.env.template** to **.env**
 * fill **.env** with actual parameters
 ```
-COMPONENT_NAME=attlas-scraper-api
-COMPONENT_KEY=attlas-scraper-api
+COMPONENT_NAME=attlas.scraper.api
+COMPONENT_KEY=attlas.scraper.api
 COMPONENT_VERSION=18.6.0-SNAPSHOT
 
 COMPONENT_PARAM_HOST=localhost
