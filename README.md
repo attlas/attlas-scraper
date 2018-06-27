@@ -1,4 +1,4 @@
-# attlas-scraper
+# Attlas scraper
 Collect information about vacancies from public sources
 
 ## Start
