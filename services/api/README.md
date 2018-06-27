@@ -1,4 +1,4 @@
-## Attlas scraper
+## Attlas scraper API
 
 ### Development environment
 * copy **.env.template** to **.env**
