@@ -1,11 +1,5 @@
 #!/bin/bash
 
-echo "[+] Building ..."
-
-echo " | [+] Service ..."
-pushd services/demon
-mvn clean install
+pushd services/api
+./build.sh
 popd
-echo " | [-] Service"
-
-echo "[-] Building"
