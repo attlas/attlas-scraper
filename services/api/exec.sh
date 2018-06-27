@@ -1,6 +1,7 @@
 #!/bin/bash
 
-finalName=$(mvn help:evaluate -Dexpression=project.build.finalName | grep -e "^[^\\[]")
+./build.sh
 
-mvn clean install && java -jar target/${finalName}.jar
+finalName=$(mvn help:evaluate -Dexpression=project.build.finalName | grep -e "^[^\\[]")
+java -jar target/${finalName}.jar
 #mvn exec:java
