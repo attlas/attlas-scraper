@@ -4,29 +4,28 @@ networks:
   scraper-network:
 
 services:
-  demon:
+  api:
     build:
-      context: ./services/demon
+      context: ./services/api
       args:
-        - DEMON_ARTIFACT
-        - DEMON_HOSTNAME
-        - DEMON_PORT
-        - DEMON_DATA_HOME
-    image: ${COMPOSE_PROJECT_NAME}-demon
+        - COMPONENT_PARAM_HOST=${SERVICE_API_HOST}
+        - COMPONENT_PARAM_LSTN=${SERVICE_API_LSTN}
+        - COMPONENT_PARAM_PORT=${SERVICE_API_PORT}
+        - COMPONENT_PARAM_PORTS=${SERVICE_API_PORTS}
+    image: ${SERVICE_API_KEY}:${PROJECT_VERSION}
     links:
       - tor
     networks:
       - scraper-network
     ports:
-      - $DEMON_PORT:$DEMON_PORT
+      - ${SERVICE_API_PORT}:${SERVICE_API_PORT}
+      - ${SERVICE_API_PORTS}:${SERVICE_API_PORTS}
     environment:
-      - TOR_HOST
-      - TOR_SOCKS_PORT
-    volumes:
-      - $DATA_HOME:$DEMON_DATA_HOME
+      COMPONENT_PARAM_TOR_HOST: ${SERVICE_TOR_HOST}
+      COMPONENT_PARAM_TOR_SOCKS_PORT: ${SERVICE_TOR_SOCKS_PORT}
   tor:
     build:
       context: ./services/tor
-    image: ${COMPOSE_PROJECT_NAME}-tor
+    image: ${SERVICE_TOR_KEY}:${PROJECT_VERSION}
     networks:
       - scraper-network
