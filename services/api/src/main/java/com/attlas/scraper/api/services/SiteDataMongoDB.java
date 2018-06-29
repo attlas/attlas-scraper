@@ -15,32 +15,32 @@ public class SiteDataMongoDB implements SiteDataService{
   private SiteDataRepository siteDataRepository;
 
   @Override
-  public String testError() {
-    throw new RuntimeException();
-  }
-
-  @Override
-  public List<SiteData> getAllSiteData() {
+  public List<SiteData> getListOfAllSite() {
     return null;
   }
 
   @Override
-  public SiteData getSiteDataById(String id) {
+  public String registerNewSite() {
     return null;
   }
 
   @Override
-  public Boolean isSiteDataExist(SiteData siteData) {
+  public SiteData getInfoAboutSite(String siteId) {
     return null;
   }
 
   @Override
-  public String addSiteData(SiteData siteData) {
-    return null;
+  public void updateInfoAboutSite(String contactId, SiteData siteData) {
+
   }
 
   @Override
-  public void updateSiteData(String id, SiteData siteData) {
+  public void updateInfoAboutSiteOnInterrupt(String contactId, SiteData siteData) {
+
+  }
+
+  @Override
+  public void deleteSite(String contactId) {
 
   }
 }

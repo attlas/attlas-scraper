@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface SiteDataRepository extends MongoRepository<SiteData, String> {
 
-  public Optional<SiteData> findById(String siteDataId);
 }

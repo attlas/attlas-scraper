@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface SiteDataService {
 
-  String testError();
+  List<SiteData> getListOfAllSite();
 
-  List<SiteData> getAllSiteData();
+  String registerNewSite();
 
-  SiteData getSiteDataById(String id);
+  SiteData getInfoAboutSite(String contactId);
 
-  Boolean isSiteDataExist(SiteData siteData);
+  void updateInfoAboutSite(String contactId, SiteData siteData);
 
-  String addSiteData(SiteData siteData);
+  void updateInfoAboutSiteOnInterrupt(String contactId, SiteData siteData);
 
-  void updateSiteData(String id, SiteData siteData);
+  void deleteSite(String contactId);
 }
