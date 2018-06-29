@@ -1,9 +1,9 @@
 #!/bin/bash -e
-export $(cat ./.env | grep -v ^# | xargs)
+export $(cat ./../../.env | grep -v ^# | xargs)
 
 docker build \
-  --build-arg COMPONENT_PARAM_HOST=${COMPONENT_PARAM_HOST} \
-  --build-arg COMPONENT_PARAM_LSTN=${COMPONENT_PARAM_LSTN} \
-  --build-arg COMPONENT_PARAM_PORT=${COMPONENT_PARAM_PORT} \
-  --build-arg COMPONENT_PARAM_PORTS=${COMPONENT_PARAM_PORTS} \
-  -t ${COMPONENT_KEY}:${COMPONENT_VERSION} .
+  --build-arg SERVICE_API_HOST=${SERVICE_API_HOST} \
+  --build-arg SERVICE_API_LSTN=${SERVICE_API_LSTN} \
+  --build-arg SERVICE_API_PORT=${SERVICE_API_PORT} \
+  --build-arg SERVICE_API_PORTS=${SERVICE_API_PORTS} \
+  -t ${SERVICE_API_KEY}:${PROJECT_VERSION} .

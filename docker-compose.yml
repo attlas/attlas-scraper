@@ -8,24 +8,34 @@ services:
     build:
       context: ./services/api
       args:
-        - COMPONENT_PARAM_HOST=${SERVICE_API_HOST}
-        - COMPONENT_PARAM_LSTN=${SERVICE_API_LSTN}
-        - COMPONENT_PARAM_PORT=${SERVICE_API_PORT}
-        - COMPONENT_PARAM_PORTS=${SERVICE_API_PORTS}
+        - SERVICE_API_HOST=${SERVICE_API_HOST}
+        - SERVICE_API_LSTN=${SERVICE_API_LSTN}
+        - SERVICE_API_PORT=${SERVICE_API_PORT}
+        - SERVICE_API_PORTS=${SERVICE_API_PORTS}
     image: ${SERVICE_API_KEY}:${PROJECT_VERSION}
     links:
       - tor
+      - mongo
     networks:
       - scraper-network
     ports:
       - ${SERVICE_API_PORT}:${SERVICE_API_PORT}
       - ${SERVICE_API_PORTS}:${SERVICE_API_PORTS}
     environment:
-      COMPONENT_PARAM_TOR_HOST: ${SERVICE_TOR_HOST}
-      COMPONENT_PARAM_TOR_SOCKS_PORT: ${SERVICE_TOR_SOCKS_PORT}
+      SERVICE_TOR_HOST: ${SERVICE_TOR_HOST}
+      SERVICE_TOR_SOCKS_PORT: ${SERVICE_TOR_SOCKS_PORT}
   tor:
     build:
       context: ./services/tor
     image: ${SERVICE_TOR_KEY}:${PROJECT_VERSION}
+    networks:
+      - scraper-network
+  mongo:
+    build:
+      context: ./dbs/mongo
+    image: ${DB_MONGO_KEY}:${PROJECT_VERSION}
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_MONGO_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_MONGO_PASS}
     networks:
       - scraper-network

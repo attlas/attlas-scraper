@@ -1,5 +1,5 @@
 #!/bin/sh
 
-COMPONENT_PARAM_ARTIFACT=$(ls *.jar)
+SERVICE_API_ARTIFACT=$(ls *.jar)
 
-exec java -Djava.security.egd=file:/dev/./urandom -jar ./${COMPONENT_PARAM_ARTIFACT}
+exec java -Djava.security.egd=file:/dev/./urandom -jar ./${SERVICE_API_ARTIFACT}
