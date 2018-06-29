@@ -1,7 +1,9 @@
 #!/bin/bash -e
-export $(cat ./.env | grep -v ^# | xargs)
+
+export $(cat ./../../.env | grep -v ^# | xargs)
+
 docker run -d --rm \
- --env-file ./.env \
- -p $COMPONENT_PARAM_PORT:$COMPONENT_PARAM_PORT \
- -p $COMPONENT_PARAM_PORTS:$COMPONENT_PARAM_PORTS \
-  --name ${COMPONENT_KEY} ${COMPONENT_KEY}:${COMPONENT_VERSION}
+ --env-file ./../../.env \
+ -p $SERVICE_API_PORT:$SERVICE_API_PORT \
+ -p $SERVICE_API_PORTS:$SERVICE_API_PORTS \
+  --name ${SERVICE_API_KEY} ${SERVICE_API_KEY}:${PROJECT_VERSION}

@@ -8,10 +8,10 @@ services:
     build:
       context: ./services/api
       args:
-        - COMPONENT_PARAM_HOST=${SERVICE_API_HOST}
-        - COMPONENT_PARAM_LSTN=${SERVICE_API_LSTN}
-        - COMPONENT_PARAM_PORT=${SERVICE_API_PORT}
-        - COMPONENT_PARAM_PORTS=${SERVICE_API_PORTS}
+        - SERVICE_API_HOST=${SERVICE_API_HOST}
+        - SERVICE_API_LSTN=${SERVICE_API_LSTN}
+        - SERVICE_API_PORT=${SERVICE_API_PORT}
+        - SERVICE_API_PORTS=${SERVICE_API_PORTS}
     image: ${SERVICE_API_KEY}:${PROJECT_VERSION}
     links:
       - tor
@@ -21,8 +21,8 @@ services:
       - ${SERVICE_API_PORT}:${SERVICE_API_PORT}
       - ${SERVICE_API_PORTS}:${SERVICE_API_PORTS}
     environment:
-      COMPONENT_PARAM_TOR_HOST: ${SERVICE_TOR_HOST}
-      COMPONENT_PARAM_TOR_SOCKS_PORT: ${SERVICE_TOR_SOCKS_PORT}
+      SERVICE_TOR_HOST: ${SERVICE_TOR_HOST}
+      SERVICE_TOR_SOCKS_PORT: ${SERVICE_TOR_SOCKS_PORT}
   tor:
     build:
       context: ./services/tor
