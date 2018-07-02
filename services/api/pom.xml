@@ -15,6 +15,7 @@
 
     <properties>
         <spring.data>2.0.3.RELEASE</spring.data>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
@@ -47,10 +48,6 @@
         </dependency>
         <!-- end::tests[] -->
     </dependencies>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
 
     <build>
       <finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
