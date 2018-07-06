@@ -1,5 +1,6 @@
 package com.attlas.scraper.api.controller;
 
+import com.attlas.scraper.api.exception.SiteDataExceptionHandler;
 import com.attlas.scraper.api.model.SiteData;
 import com.attlas.scraper.api.repository.SiteDataRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
