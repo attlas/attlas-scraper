@@ -1,4 +1,4 @@
-package com.attlas.scraper.api;
+package com.attlas.scraper.api.controller;
 
 import org.junit.Before;
 import org.junit.Test;
