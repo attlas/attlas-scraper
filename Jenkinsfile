@@ -73,26 +73,24 @@ node {
     def scannerHome = tool 'SonarQube Scanner';
     withSonarQubeEnv('SonarQube') {
       if (pullRequest){
-        sh "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${pullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.endpoint=https://github.bmc.com/api/v3 -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
+        sh "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${pullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
       } else {
-        if (uploadSonarStats){
-          sh "${scannerHome}/bin/sonar-scanner"
-          // check SonarQube Quality Gates
-          //// Pipeline Utility Steps
-          def props = readProperties  file: '.scannerwork/report-task.txt'
-          echo "properties=${props}"
-          def sonarServerUrl=props['serverUrl']
-          def ceTaskUrl= props['ceTaskUrl']
-          def ceTask
-          //// HTTP Request Plugin
-          timeout(time: 1, unit: 'MINUTES') {
-          waitUntil {
-            def response = httpRequest "${ceTaskUrl}"
-            println('Status: '+response.status)
-            println('Response: '+response.content)
-            ceTask = readJSON text: response.content
-            return (response.status == 200) && ("SUCCESS".equals(ceTask['task']['status']))
-          }
+        sh "${scannerHome}/bin/sonar-scanner"
+        // check SonarQube Quality Gates
+        //// Pipeline Utility Steps
+        def props = readProperties  file: '.scannerwork/report-task.txt'
+        echo "properties=${props}"
+        def sonarServerUrl=props['serverUrl']
+        def ceTaskUrl= props['ceTaskUrl']
+        def ceTask
+        //// HTTP Request Plugin
+        timeout(time: 1, unit: 'MINUTES') {
+        waitUntil {
+          def response = httpRequest "${ceTaskUrl}"
+          println('Status: '+response.status)
+          println('Response: '+response.content)
+          ceTask = readJSON text: response.content
+          return (response.status == 200) && ("SUCCESS".equals(ceTask['task']['status']))
         }
         //
         def qgResponse = httpRequest sonarServerUrl + "/api/qualitygates/project_status?analysisId=" + ceTask['task']['analysisId']
