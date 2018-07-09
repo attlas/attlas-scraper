@@ -73,7 +73,7 @@ node {
     def scannerHome = tool 'SonarQube Scanner';
     withSonarQubeEnv('SonarQube') {
       if (pullRequest){
-        sh "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${pullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.endpoint=https://api.github.com -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
+        sh "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${pullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
       } else {
         sh "${scannerHome}/bin/sonar-scanner"
         // check SonarQube Quality Gates
