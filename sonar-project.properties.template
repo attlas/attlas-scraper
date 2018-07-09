@@ -8,7 +8,7 @@ sonar.exclusions=services/api/src/test/**
 # Java coverage report
 sonar.java.test.binaries=services/api/target/test-classes
 sonar.java.binaries=services/api/target/classes
-sonar.java.libraries=services/api/target/lib
+#sonar.java.libraries=services/api/target/lib
 sonar.jacoco.reportPath=services/api/target/coverage-reports/jacoco-ut.exec
 sonar.junit.reportsPath=services/api/target/surefire-reports
 sonar.java.coveragePlugin=jacoco
