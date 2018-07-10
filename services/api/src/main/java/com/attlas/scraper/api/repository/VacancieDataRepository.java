@@ -1,9 +1,7 @@
 package com.attlas.scraper.api.repository;
 
 import com.attlas.scraper.api.model.VacancyData;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+//import org.springframework.data.mongodb.repository.MongoRepository;
 
-@Repository
-public interface VacancieDataRepository extends MongoRepository<VacancyData, String> {
+public interface VacancieDataRepository /*extends MongoRepository<VacancyData, String>*/ {
 }

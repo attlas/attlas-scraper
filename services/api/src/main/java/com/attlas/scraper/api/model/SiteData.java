@@ -1,15 +1,15 @@
 package com.attlas.scraper.api.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+//import org.springframework.data.mongodb.core.index.IndexDirection;
+//import org.springframework.data.mongodb.core.index.Indexed;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Document(collection = "sites")
+//@Document(collection = "sites")
 public class SiteData {
 
   @Id
@@ -21,7 +21,7 @@ public class SiteData {
 
   private Date timeStamp;
 
-  @Indexed(direction = IndexDirection.ASCENDING)
+  //@Indexed(direction = IndexDirection.ASCENDING)
   private List<VacancyData> vacanciesData;
 
   protected SiteData () {

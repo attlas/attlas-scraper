@@ -43,7 +43,7 @@ public class SiteDataControllerMockStandAloneTest {
     // This object will be magically initialized by the initFields method below.
     private JacksonTester<SiteData> jsonSiteDataMock;
 
-    @Before
+    /*@Before
     public void setup() {
       // We would need this line if we would not use MockitoJUnitRunner
       // MockitoAnnotations.initMocks(this);
@@ -151,5 +151,5 @@ public class SiteDataControllerMockStandAloneTest {
       // then
       assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
       assertThat(response.getHeaders("X-SUPERHERO-APP")).containsOnly("super-header");
-    }
+    }*/
 }
