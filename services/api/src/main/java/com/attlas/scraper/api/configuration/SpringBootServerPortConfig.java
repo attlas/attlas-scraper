@@ -11,8 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpringBootServerPortConfig implements CommandLineRunner {
 
-  @Value("#{systemEnvironment['COMPONENT_PARAM_PORT']}:9090")
+  @Value("#{systemEnvironment['COMPONENT_PARAM_PORT']?:'9090'}")
   private String COMPONENT_PARAM_PORT;
+
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -22,6 +23,7 @@ public class SpringBootServerPortConfig implements CommandLineRunner {
       @Override
       public void customize(ConfigurableServletWebServerFactory factory) {
         factory.setPort(Integer.parseInt(COMPONENT_PARAM_PORT));
+        System.out.println(COMPONENT_PARAM_PORT);
       }
     };
   }

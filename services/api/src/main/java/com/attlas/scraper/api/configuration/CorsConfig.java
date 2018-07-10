@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class CorsConfig implements WebMvcConfigurer {
 
-  @Value("#{systemEnvironment['COMPONENT_PARAM_CORS']}:**")
+  @Value("#{systemEnvironment['COMPONENT_PARAM_CORS']?:'**'}")
   private String COMPONENT_PARAM_CORS;
 
   @Override
