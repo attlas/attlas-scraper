@@ -10,11 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class CorsConfig implements WebMvcConfigurer {
 
-  @Value("${COMPONENT_PARAM_CORS}")
+  @Value("#{systemEnvironment['COMPONENT_PARAM_CORS']}")
   private String COMPONENT_PARAM_CORS;
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/"+COMPONENT_PARAM_CORS);
+
   }
 }

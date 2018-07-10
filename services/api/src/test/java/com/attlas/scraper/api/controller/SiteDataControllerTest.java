@@ -1,3 +1,4 @@
+/*
 package com.attlas.scraper.api.controller;
 
 import com.attlas.scraper.api.model.SiteData;
@@ -26,7 +27,8 @@ public class SiteDataControllerTest {
 
   private MockMvc mockMvc;
 
-  /*@Autowired
+  */
+/*@Autowired
   private SiteDataService siteDataServiceMock;
 
   @Test
@@ -39,5 +41,7 @@ public class SiteDataControllerTest {
 
     verify(siteDataServiceMock, times(1).getListOfAllSite());
     verifyNoMoreInteractions(siteDataServiceMock);
-  }*/
+  }*//*
+
 }
+*/

@@ -10,8 +10,8 @@ import java.util.List;
 @Service
 public class VacancyDataMongoDB implements VacancyDataService {
 
-//  @Autowired
-//  private VacancieDataRepository vacancieDataRepository;
+  @Autowired
+  private VacancieDataRepository vacancieDataRepository;
 
   @Override
   public List<VacancyData> getAllVacancyForSite(String siteName) {
