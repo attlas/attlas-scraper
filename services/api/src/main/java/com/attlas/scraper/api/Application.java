@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 public class Application {
 
   public static void main(String[] args) {
-    PropertiesUtil.initProperties();
+    //PropertiesUtil.initProperties();
     new SpringApplicationBuilder()
         .bannerMode(Banner.Mode.OFF)
         .sources(Application.class)
