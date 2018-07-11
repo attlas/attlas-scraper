@@ -1,10 +1,8 @@
 package com.attlas.scraper.api;
 
 import org.springframework.boot.Banner;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.util.HashMap;
@@ -19,6 +17,8 @@ public class Application {
 
     protected Map<String, Object> confMap () {
       Map<String, Object> map = new HashMap<>();
+      String tempEnv = System.getenv("COMPONENT_PARAM_PORT");
+      System.out.println(tempEnv);
       String component_param_port = Optional.ofNullable(System.getenv("COMPONENT_PARAM_PORT")).orElse("9999");
       map.put("server.port", component_param_port);
       return map;
@@ -26,7 +26,6 @@ public class Application {
   }
 
   public static void main(String[] args) {
-    //PropertiesUtil.initProperties();
     new SpringApplicationBuilder()
         .bannerMode(Banner.Mode.OFF)
         .sources(Application.class)
