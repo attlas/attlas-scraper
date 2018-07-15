@@ -8,11 +8,11 @@ services:
     build:
       context: ./services/api
       args:
-        - SERVICE_API_HOST=${SERVICE_API_HOST}
-        - SERVICE_API_LSTN=${SERVICE_API_LSTN}
-        - SERVICE_API_PORT=${SERVICE_API_PORT}
-        - SERVICE_API_PORTS=${SERVICE_API_PORTS}
-    image: ${SERVICE_API_KEY}:${PROJECT_VERSION}
+        - COMPONENT_PARAM_HOST=${SERVICE_API_HOST}
+        - COMPONENT_PARAM_LSTN=${SERVICE_API_LSTN}
+        - COMPONENT_PARAM_PORT=${SERVICE_API_PORT}
+        - COMPONENT_PARAM_PORTS=${SERVICE_API_PORTS}
+    image: ${}:${PROJECT_VERSION}
     links:
       - tor
       - mongo
