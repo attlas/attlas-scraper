@@ -25,32 +25,32 @@ public class VacancyDataController {
   private VacancyDataService vacancyDataService;
 
   @GetMapping
-  @CrossOrigin("http://localhost:8080")
+  @CrossOrigin()
   public List<VacancyData> getAllVacancyForSite(@PathVariable String contactId, String siteName) {
     return Optional.ofNullable(vacancyDataService.getAllVacancyForSite(siteName))
         .orElseThrow(() -> new RuntimeException("no such vacancies or connection to db"));
   }
 
   @PostMapping
-  @CrossOrigin("http://localhost:8080")
+  @CrossOrigin()
   public String createNewVacancy(@PathVariable String contactId, VacancyData vacancyData) {
     return "vacancy created : temporary mock";
   }
 
   @PutMapping(path = "/{streamId}")
-  @CrossOrigin("http://localhost:8080")
+  @CrossOrigin()
   public void updateInfoAboutVacancy(@PathVariable String contactId, @PathVariable String streamId, VacancyData vacancyData) {
     System.out.println("mock for update Vacancy");;
   }
 
   @PostMapping(path = "/{streamId}")
-  @CrossOrigin("http://localhost:8080")
+  @CrossOrigin()
   public void updateInfoAboutVacancyOnInterrupt(@PathVariable String contactId, @PathVariable String streamId, VacancyData vacancyData) {
     System.out.println("mock for partial update Vacancy");
   }
 
   @DeleteMapping(path = "/{streamId}")
-  @CrossOrigin("http://localhost:8080")
+  @CrossOrigin()
   public void deleteVacancy(@PathVariable String contactId, @PathVariable String streamId) {
     System.out.println("mock for deleting Vacancy");
   }
