@@ -42,6 +42,7 @@ node {
     }
     //
     sh 'envsubst < .env.template > .env';
+    sh 'export $(cat ./.env | grep -v ^# | xargs)'
     sh 'envsubst < sonar-project.properties.template > sonar-project.properties';
     //
     printTopic('Build info')
