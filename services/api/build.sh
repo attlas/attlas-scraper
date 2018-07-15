@@ -2,4 +2,3 @@
 
 . ./.env.sh
 mvn clean install
-
