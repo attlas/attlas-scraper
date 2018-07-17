@@ -11,7 +11,7 @@ import java.util.Optional;
 public class ServerPortCustomizer implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
 
   private EnvironmentVariablesLoader loader = EnvironmentVariablesLoader.getInstance();
-  private final String componentParamPort = "COMPONENT_PARAM_PORT";
+  private final static String componentParamPort = "COMPONENT_PARAM_PORT";
 
   @Override
   public void customize(ConfigurableWebServerFactory factory) {

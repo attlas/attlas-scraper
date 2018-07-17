@@ -5,15 +5,17 @@ import java.util.Map;
 
 public class EnvironmentVariablesLoader {
 
-  private volatile static EnvironmentVariablesLoader environmentVariablesLoader;
+  private static volatile EnvironmentVariablesLoader environmentVariablesLoader;
 
   private Map<String, String> environmentMap;
+
+
+  private String[] environmentVariablesName = {"COMPONENT_PARAM_HOST", "COMPONENT_PARAM_LSTN", "COMPONENT_PARAM_PORT",
+      "COMPONENT_PARAM_PORTS", "COMPONENT_PARAM_CORS", "COMPONENT_PARAM_MONGO_HOST", "COMPONENT_PARAM_MONGO_PORT"};
+
   private EnvironmentVariablesLoader() {
     this.environmentMap = new HashMap<>();
   }
-
-  private String[] environmentVariablesName = {"COMPONENT_PARAM_HOST", "COMPONENT_PARAM_LSTN", "COMPONENT_PARAM_PORT",
-  "COMPONENT_PARAM_PORTS", "COMPONENT_PARAM_CORS", "COMPONENT_PARAM_MONGO_HOST", "COMPONENT_PARAM_MONGO_PORT"};
 
   public static EnvironmentVariablesLoader getInstance() {
     if (environmentVariablesLoader == null) {
