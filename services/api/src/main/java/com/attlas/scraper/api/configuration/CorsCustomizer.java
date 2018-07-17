@@ -1,0 +1,25 @@
+package com.attlas.scraper.api.configuration;
+
+import com.attlas.scraper.api.utils.EnvironmentVariablesLoader;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Optional;
+
+@Configuration
+@EnableWebMvc
+public class CorsCustomizer implements WebMvcConfigurer {
+
+  private EnvironmentVariablesLoader loader = EnvironmentVariablesLoader.getInstance();
+  private final String componentParamCors = "COMPONENT_PARAM_CORS";
+
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/" + Optional.ofNullable(loader.receiveEnvironmentVariable(componentParamCors)).orElse("**"));
+    //.allowedOrigins("http://" + COMPONENT_PARAM_CORS_HOST + ":"COMPONENT_PARAM_CORS_PORT);
+  }
+
+
+}
