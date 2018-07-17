@@ -13,11 +13,11 @@ import java.util.Optional;
 public class CorsCustomizer implements WebMvcConfigurer {
 
   private EnvironmentVariablesLoader loader = EnvironmentVariablesLoader.getInstance();
-  private final static String componentParamCors = "COMPONENT_PARAM_CORS";
+  private static final String COMPONENT_PARAM_CORS = "COMPONENT_PARAM_CORS";
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/" + Optional.ofNullable(loader.receiveEnvironmentVariable(componentParamCors)).orElse("**"));
+    registry.addMapping("/" + Optional.ofNullable(loader.receiveEnvironmentVariable(COMPONENT_PARAM_CORS)).orElse("**"));
   }
 
 
