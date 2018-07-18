@@ -23,7 +23,6 @@ public class VarTransfer {
   }
 
   public String varAsString(String varVal) {
-    String tempVal = varVal;
-    return tempVal;
+    return varVal;
   }
 }

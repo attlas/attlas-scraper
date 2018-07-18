@@ -13,7 +13,6 @@ public class ServerPortCustomizer implements WebServerFactoryCustomizer<Configur
 
   private EnvironmentVariablesLoader loader = EnvironmentVariablesLoader.getInstance();
   private VarTransfer transfer = VarTransfer.getInstance();
-  private static final String port = "COMPONENT_PARAM_PORT";
 
   @Override
   public void customize(ConfigurableWebServerFactory factory) {
