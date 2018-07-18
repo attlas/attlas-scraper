@@ -1,21 +1,17 @@
 package com.attlas.scraper.api.utils;
 
+import com.attlas.scraper.api.constants.AppConst;
+import com.attlas.scraper.api.constants.EnvVar;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class EnvironmentVariablesLoader {
 
   private static volatile EnvironmentVariablesLoader environmentVariablesLoader;
 
-  private Map<String, String> environmentMap;
-
-
-  private String[] environmentVariablesName = {"COMPONENT_PARAM_HOST", "COMPONENT_PARAM_LSTN", "COMPONENT_PARAM_PORT",
-      "COMPONENT_PARAM_PORTS", "COMPONENT_PARAM_CORS", "COMPONENT_PARAM_MONGO_HOST", "COMPONENT_PARAM_MONGO_PORT"};
-
-  private EnvironmentVariablesLoader() {
-    this.environmentMap = new HashMap<>();
-  }
+  private EnvironmentVariablesLoader() {  }
 
   public static EnvironmentVariablesLoader getInstance() {
     if (environmentVariablesLoader == null) {
@@ -28,14 +24,11 @@ public class EnvironmentVariablesLoader {
     return environmentVariablesLoader;
   }
 
-  public String receiveEnvironmentVariable(String envVar) {
-
-    String envVarTemp = envVar;
-
-    for(String environmentVariable : environmentVariablesName) {
-      environmentMap.put(environmentVariable, System.getenv(environmentVariable));
+  public String receiveEnvironmentVariable(AppConst appConst) {
+    Map<String, String> tempMapOfVar = new HashMap<>();
+    for (EnvVar current : EnvVar.values()) {
+      tempMapOfVar.put(current.getCorrespond().toString(), System.getenv(current.toString()));
     }
-    return environmentMap.get(envVarTemp);
+    return Optional.ofNullable(tempMapOfVar.get(appConst.toString())).orElse(appConst.getDefVal());
   }
-
 }
