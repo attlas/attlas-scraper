@@ -2,7 +2,7 @@ package com.attlas.scraper.api;
 
 public enum ApplicationParameter {
   HOST("localhost"),
-  LSTN("0.0.0.0"),
+  LSTN("0.0.0.0"), //NOSONAR
   PORT("8080"),
   PORTS("8443"),
   CORS("**"),
