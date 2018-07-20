@@ -1,6 +1,6 @@
 sonar.projectKey=attlas-scraper
 sonar.projectName=attlas-scraper
-sonar.projectVersion=18.7.0-SNAPSHOT
+sonar.projectVersion=18.8.0-SNAPSHOT
 sonar.sources=services/api/src
 sonar.binaries=services/api/target/classes
 sonar.exclusions=services/api/src/test/**
