@@ -1,14 +1,15 @@
 package com.attlas.scraper.api.model;
 
 
-//import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-//@Document
+@Document
 public class VacancyData {
 
-  //@Id
+  @Id
   private String id;
 
   private String name;
