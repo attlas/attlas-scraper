@@ -7,7 +7,8 @@ public enum ApplicationParameter {
   PORTS("8443"),
   CORS("**"),
   MONGO_HOST("localhost"),
-  MONGO_PORT("27017");
+  MONGO_PORT("27017"),
+  MONGO_DB("test");
 
   private final String defaultValue;
 
