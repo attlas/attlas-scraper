@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 @Configuration
-@EnableConfigurationProperties(MultipleMongoConfig.class)
+//@EnableConfigurationProperties(MultiMongoProperties.class)
 public class MultipleMongoConfig {
 
   private final MultiMongoProperties multiMongoProperties;

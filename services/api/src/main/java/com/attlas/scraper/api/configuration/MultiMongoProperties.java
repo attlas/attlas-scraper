@@ -15,13 +15,13 @@ import java.util.Objects;
 public class MultiMongoProperties {
 
   private MongoProperties primary = new MongoProperties();
-/*
-  public MultiMongoProperties() {}
+  /*public MultiMongoProperties() {}*/
 
-  public MultiMongoProperties(MongoProperties primary) {
+  /*public MultiMongoProperties(MongoProperties primary) {
     this.primary = primary;
   }*/
-  public MultiMongoProperties() {
+  public MultiMongoProperties(/*MongoProperties primary*/) {
+    //this.primary = primary;
     this.primary.setHost(Context.getInstance().asString(ApplicationParameter.MONGO_HOST));
     this.primary.setPort(Context.getInstance().asInt(ApplicationParameter.MONGO_PORT));
     this.primary.setDatabase(Context.getInstance().asString(ApplicationParameter.MONGO_DB));
