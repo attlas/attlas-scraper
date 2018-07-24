@@ -25,13 +25,13 @@ public class SiteDataController {
   private SiteDataService siteDataService;
 
   @GetMapping
-  @CrossOrigin("http://localhost:8080")
+  @CrossOrigin
   public List<SiteData> getListOfAllSite() {
     return Optional.ofNullable(siteDataService.getListOfAllSite()).orElseThrow(() -> new RuntimeException("no list of site is presented or bad connection to db"));
   }
 
   @PostMapping
-  @CrossOrigin("http://localhost:8080")
+  @CrossOrigin
   public String registerNewSite() {
     return "new site registered";
   }
@@ -43,13 +43,13 @@ public class SiteDataController {
   }
 
   @PutMapping(path = "/{contactId}")
-  @CrossOrigin("http://localhost:8080")
+  @CrossOrigin
   public void updateInfoAboutSite(@PathVariable String contactId, SiteData siteData) {
     System.out.println("temporary mock: update info for site");
   }
 
   @PatchMapping(path = "/{contactId}")
-  @CrossOrigin("http://localhost:8080")
+  @CrossOrigin
   public void updateInfoAboutSiteOnInterrupt(@PathVariable String contactId, SiteData siteData) {
     System.out.println("temporary mock: update partially info for site");
   }
