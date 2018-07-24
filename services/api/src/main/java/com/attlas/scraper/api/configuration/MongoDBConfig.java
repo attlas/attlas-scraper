@@ -1,5 +1,7 @@
 package com.attlas.scraper.api.configuration;
 
+import com.attlas.scraper.api.ApplicationParameter;
+import com.attlas.scraper.api.Context;
 import com.mongodb.MongoClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -29,11 +31,11 @@ public class MongoDBConfig extends AbstractMongoConfiguration {
 
   @Override
   public MongoClient mongoClient() {
-    return new MongoClient();
+    return new MongoClient(Context.getInstance().asString(ApplicationParameter.MONGO_HOST) + ":" + Context.getInstance().asString(ApplicationParameter.MONGO_PORT));
   }
 
   @Override
   protected String getDatabaseName() {
-    return null;
+    return Context.getInstance().asString(ApplicationParameter.MONGO_DB);
   }
 }
