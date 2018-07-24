@@ -1,19 +1,15 @@
 package com.attlas.scraper.api.configuration;
 
-import com.attlas.scraper.api.model.SiteData;
-import com.attlas.scraper.api.model.VacancyData;
-import com.attlas.scraper.api.repository.SiteDataRepository;
+import com.mongodb.MongoClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-//import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import java.util.Arrays;
-import java.util.Date;
-
-//@EnableMongoRepositories(basePackageClasses = SiteDataRepository.class)
 @Configuration
-public class MongoDBConfig {
+@EnableMongoRepositories(basePackages = "com.attlas.scraper.api.repository")
+public class MongoDBConfig extends AbstractMongoConfiguration {
 
   @Bean
   CommandLineRunner commandLineRunner(/*SiteDataRepository siteDataRepository*/) {
@@ -29,5 +25,15 @@ public class MongoDBConfig {
               new Date(), "Architector in full stack position"))));
       /*/
     };
+  }
+
+  @Override
+  public MongoClient mongoClient() {
+    return new MongoClient();
+  }
+
+  @Override
+  protected String getDatabaseName() {
+    return null;
   }
 }
