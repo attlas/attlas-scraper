@@ -11,8 +11,8 @@ import java.util.List;
 @Service
 public class SiteDataMongoDB implements SiteDataService{
 
-//  @Autowired
-//  private SiteDataRepository siteDataRepository;
+  @Autowired
+  private SiteDataRepository siteDataRepository;
 
   @Override
   public List<SiteData> getListOfAllSite() {

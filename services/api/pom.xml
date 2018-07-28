@@ -5,7 +5,7 @@
 
   <groupId>com.attlas.scraper</groupId>
   <artifactId>api</artifactId>
-  <version>18.8.0-SNAPSHOT</version>
+  <version>18.7.0-SNAPSHOT</version>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -14,6 +14,7 @@
   </parent>
 
   <properties>
+    <spring.data>2.0.3.RELEASE</spring.data>
     <java.version>1.8</java.version>
   </properties>
 
@@ -22,21 +23,41 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    <!--dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-    </dependency-->
     <!-- tag::actuator[] -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- end::actuator[] -->
-    <!-- dependency for MongoDB -->
-    <!--<dependency>
+    <!-- dependency for JPA and MongoDB -->
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-mongodb</artifactId>
-    </dependency>-->
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-mongodb</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-mongodb</artifactId>
+      <version>${spring.data}</version>
+      <exclusions>
+      </exclusions>
+    </dependency>
     <!-- tag::tests[] -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

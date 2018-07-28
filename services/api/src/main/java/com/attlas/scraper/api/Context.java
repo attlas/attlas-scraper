@@ -2,8 +2,6 @@ package com.attlas.scraper.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.attlas.scraper.api.ApplicationParameter;
-import com.attlas.scraper.api.EnvironmentVariable;
 
 import java.util.HashMap;
 import java.util.Map;
