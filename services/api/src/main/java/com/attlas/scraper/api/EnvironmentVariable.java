@@ -1,7 +1,5 @@
 package com.attlas.scraper.api;
 
-import com.attlas.scraper.api.ApplicationParameter;
-
 public enum EnvironmentVariable {
   COMPONENT_PARAM_HOST(ApplicationParameter.HOST),
   COMPONENT_PARAM_LSTN(ApplicationParameter.LSTN),
